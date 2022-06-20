@@ -19,10 +19,11 @@ import com.tw.salon.entity.Servicio;
 
 import com.tw.salon.service.IServicioService;
 
+//administra la comunicacion, se crean post, get put y delete de la clase servicio
+//se hace el mapeo de la aplicacion, se definen los paths
 
 
-
-@RestController //agregada esta linea
+@RestController 
 
 public class ServicioController {
 	@Autowired

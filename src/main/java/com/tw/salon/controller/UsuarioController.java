@@ -1,11 +1,13 @@
 package com.tw.salon.controller;
 
+//administra la comunicacion, se crean post, get put y delete de la clase usuario
+//se hace el mapeo de la aplicacion, se definen los paths
+
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.CrossOrigin;
 //import java.util.List;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,17 +15,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+
 import org.springframework.web.bind.annotation.RestController;
 
+import com.tw.salon.entity.Response;
 import com.tw.salon.entity.Usuario;
+import com.tw.salon.entity.UsuarioLogin;
 import com.tw.salon.service.IUsuarioService;
 
+@CrossOrigin(origins = "*")
+@RestController  
 
-@RestController  // administra la comunicacion, se crean post, get put y delete ---se eliminaron
-//@RequestMapping("/materia") // es la base del path --- se eliminaron
-
-//@Controller //agregada esta linea
+//@Controller 
 public class UsuarioController {
 	@Autowired
 	IUsuarioService service;	
@@ -58,10 +61,24 @@ public class UsuarioController {
 		
 	}
 	
-	@GetMapping("/mostrarUsuario")
-	public String obtenerUsuario(){
-		return "nksdbj";
-		
+	@PostMapping("/login") 
+	public Response login(@RequestBody UsuarioLogin usuario) {
+		Response r=new Response();
+		r.setResult("error");
+		r.setStatus("error");
+		List <Usuario> usuarios = service.obtenerListaUsuarios();
+		for(Usuario u:usuarios) {
+			if(u.getEmail().equals(u.getEmail())&&u.getContrasena().equals(usuario.getContrasena())) {
+				System.out.println("validando..");
+				r.setResult("ok");
+				r.setStatus("ok");
+				return r;
+			}
+			System.out.println("---------------val"+u.getEmail()+"-"+usuario.getEmail()+"//"+u.getContrasena()+"--"+usuario.getContrasena());
+		}
+		return r;
 	}
+	
+
 }
 

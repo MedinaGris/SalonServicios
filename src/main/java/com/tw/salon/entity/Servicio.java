@@ -1,5 +1,5 @@
 package com.tw.salon.entity;
-
+//clase que define la entidad servicio para su creacion en base de datos
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
